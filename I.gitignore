@@ -1,0 +1,24 @@
+# Betriebssystem
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editoren / IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node / Build (nur relevant, falls später Werkzeuge dazukommen)
+node_modules/
+dist/
+*.log
+
+# Temporäre und lokale Dateien
+*.tmp
+*.bak
+.cache/
+
+# Arbeitskopie, die nicht ausgeliefert wird
+vermoegensrechner.html

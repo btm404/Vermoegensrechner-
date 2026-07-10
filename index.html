@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#EDF2F7">
+<title>Vermögensaufbau-Rechner</title>
+<style>:root{--bg:#EDF2F7;--bg-2:#E2E9F1;--panel:#FFFFFF;--panel-2:#F1F5F9;--line:#DAE2EA;--line-2:#C4D1DC;--ink:#16242D;--ink-dim:#4E616D;--ink-mute:#84949F;--gold:#A87A12;--gold-dk:#8A6410;--teal:#2E9E66;--s1:#2F7FD4;--s2:#2E9E66;--s3:#E58A34;--paid:#9EACB6;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--mono:ui-monospace,"SF Mono","SFMono-Regular","Cascadia Mono",Menlo,Consolas,"Roboto Mono",monospace}*{box-sizing:border-box;margin:0;padding:0}html{-webkit-text-size-adjust:100%}body{font-family:var(--sans);background:var(--bg-2);color:var(--ink);line-height:1.5;padding:16px;min-height:100vh;min-height:100dvh;display:flex;justify-content:center;background-image:radial-gradient(130% 70% at 50% 0%,#FFFFFF 0%,var(--bg-2) 60%)}.app{width:100%;max-width:560px;box-shadow:0 6px 26px rgba(24,52,78,.08);border-radius:14px}.head{border:1px solid var(--line);border-bottom:none;background:var(--panel);border-radius:14px 14px 0 0;padding:20px 20px 18px;text-align:center}.kicker{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.24em;color:var(--teal);text-transform:uppercase;margin-bottom:9px}.kicker::before,.kicker::after{content:"";width:22px;height:1px;background:var(--teal);opacity:.5}h1{font-size:27px;font-weight:800;letter-spacing:-.01em;line-height:1.05;color:var(--ink)}.credit{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--ink-mute);text-transform:uppercase;margin-top:9px}.hero{border:1px solid var(--line);border-top:none;background:linear-gradient(180deg,#FFFFFF 0%,#ECF6F0 100%);padding:20px}.hero .hlabel{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:8px}.hero .hval{font-family:var(--mono);font-size:38px;font-weight:700;color:var(--teal);line-height:1;letter-spacing:-.01em}.hero .hsub{font-size:12.5px;color:var(--ink-dim);margin-top:10px}.hero .hsub b{color:var(--ink);font-weight:600;font-family:var(--mono)}.sect{border:1px solid var(--line);border-top:none;background:var(--panel);padding:18px 20px}.sect.last{border-radius:0 0 14px 14px}.lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--ink-mute);text-transform:uppercase;margin-bottom:14px}.lbl .hint{display:block;margin-top:4px;letter-spacing:.02em;text-transform:none;font-family:var(--sans);font-size:11.5px;color:var(--ink-mute)}.row{display:flex;gap:14px;margin-bottom:14px}.row:last-child{margin-bottom:0}.fld{flex:1}.fld label{display:block;font-size:12px;color:var(--ink-dim);margin-bottom:6px}.inwrap{position:relative;display:flex;align-items:center}.inwrap input{width:100%;background:var(--panel-2);border:1px solid var(--line-2);color:var(--ink);font-family:var(--mono);font-size:17px;font-weight:600;padding:11px 38px 11px 12px;border-radius:9px}.inwrap .suf{position:absolute;right:12px;font-family:var(--mono);font-size:13px;color:var(--ink-mute);pointer-events:none}input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(46,158,102,.18)}.slider-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}.slider-head label{font-size:12px;color:var(--ink-dim)}.slider-head .sval{font-family:var(--mono);font-size:17px;font-weight:700;color:var(--teal)}.slider-head .sval span{font-size:12px;color:var(--ink-mute);font-weight:500}input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:3px;background:var(--panel-2);outline:none;border:1px solid var(--line-2)}input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;border-radius:50%;background:var(--teal);cursor:pointer;border:3px solid var(--panel);box-shadow:0 0 0 1px var(--teal)}input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--teal);cursor:pointer;border:3px solid var(--panel)}input[type=range]:focus-visible{box-shadow:0 0 0 3px rgba(46,158,102,.28)}.seg{display:flex;background:var(--panel-2);border:1px solid var(--line-2);border-radius:9px;padding:3px;gap:2px}.seg button{flex:1;background:transparent;border:none;cursor:pointer;color:var(--ink-dim);font-family:var(--sans);font-size:12.5px;font-weight:600;padding:9px 4px;border-radius:6px}.seg button.on{background:var(--teal);color:#FFFFFF}.seg button:focus-visible{outline:2px solid var(--teal);outline-offset:2px}.scen{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px dashed var(--line)}.scen:first-of-type{border-top:none}.scen .dot{width:11px;height:11px;border-radius:50%;flex:0 0 auto}.scen .sname{flex:1;font-size:14px;font-weight:600}.scen .sname small{display:block;font-weight:400;font-size:11px;color:var(--ink-mute);letter-spacing:.02em}.scen .inwrap{width:96px;flex:0 0 auto}.scen .inwrap input{font-size:16px;padding:9px 30px 9px 11px}.chartwrap{border:1px solid var(--line);border-top:none;background:var(--panel);padding:18px 16px 16px}.chart-title{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--ink-mute);text-transform:uppercase;margin-bottom:6px;padding:0 4px;display:flex;justify-content:space-between}.chart-title .tap{text-transform:none;letter-spacing:.02em;font-family:var(--sans);color:var(--ink-mute);font-size:10px}svg.chart{width:100%;height:auto;display:block;overflow:visible;touch-action:none;cursor:crosshair}.grid-line{stroke:var(--line);stroke-width:1}.axis-txt{fill:var(--ink-mute);font-family:var(--mono);font-size:10px}.paid-line{fill:none;stroke:var(--paid);stroke-width:1.5;stroke-dasharray:4 4}.legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:14px;padding:0 4px}.legend .lg{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--ink-dim)}.legend .lg i{width:16px;height:3px;border-radius:2px;display:inline-block}.legend .lg.dash i{height:0;border-top:2px dashed var(--paid);background:none!important;width:16px}.cards{display:flex;flex-direction:column;gap:12px}.card{border:1px solid var(--line);border-radius:11px;background:var(--panel-2);padding:15px 16px;border-left-width:4px}.card .ctop{display:flex;align-items:center;gap:9px;margin-bottom:12px}.card .cname{font-size:14px;font-weight:700}.card .crate{margin-left:auto;font-family:var(--mono);font-size:13px;color:var(--ink-dim)}.card .big{font-family:var(--mono);font-size:26px;font-weight:700;color:var(--ink);line-height:1;margin-bottom:3px}.card .biglbl{font-size:11px;color:var(--ink-mute);margin-bottom:13px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;border-top:1px solid var(--line);padding-top:12px}.kv .k{font-size:10.5px;color:var(--ink-mute);letter-spacing:.03em;margin-bottom:2px}.kv .v{font-family:var(--mono);font-size:15px;font-weight:600}.kv .v.gold{color:var(--gold)}.kv .v.dim{color:var(--ink-dim)}.kv .v.neg{color:#C6482E}.withdraw-out{background:var(--panel-2);border:1px solid var(--line-2);border-radius:11px;padding:16px;margin-top:2px}.wrow{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px dashed var(--line)}.wrow:first-child{border-top:none;padding-top:0}.wrow .wk{font-size:12.5px;color:var(--ink-dim)}.wrow .wv{font-family:var(--mono);font-size:18px;font-weight:700;text-align:right}.wrow .wv.teal{color:var(--teal)}.wrow .wv.gold{color:var(--gold)}.wrow .wv small{display:block;font-family:var(--sans);font-size:10.5px;color:var(--ink-mute);font-weight:400}.foot{padding:16px 20px 4px}.reset{background:none;border:1px solid var(--line-2);color:var(--ink-dim);font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:9px 15px;border-radius:8px;cursor:pointer}.reset:hover{border-color:var(--teal);color:var(--ink)}.reset:focus-visible{outline:2px solid var(--teal);outline-offset:2px}.legal{font-size:11.5px;color:var(--ink-dim);line-height:1.6;margin-top:14px;padding:0 2px}.legal b{color:var(--ink);font-weight:600}.legal .warn{color:var(--gold);font-weight:600}@media (max-width:420px){body{padding:9px}h1{font-size:24px}.hero .hval{font-size:32px}.row{flex-direction:column;gap:12px}}@media (prefers-reduced-motion:reduce){*{transition:none!important}}</style>
+</head>
+<body>
+<div class="app">
+<div class="head">
+<div class="kicker">Sparplan · Zinseszins</div>
+<h1>Vermögensaufbau-Rechner</h1>
+<div class="credit">by tangomike</div>
+</div>
+<div class="hero">
+<div class="hlabel">Realistisches Szenario · nach Steuer</div>
+<div class="hval" id="hero-val">—</div>
+<div class="hsub">Aus <b id="hero-paid">—</b> Einzahlung werden nach <b id="hero-years">—</b> Jahren <b id="hero-net">—</b> netto. Kaufkraft heute: <b id="hero-real">—</b>.</div>
+</div>
+<div class="sect">
+<div class="lbl">1 · Sparphase</div>
+<div class="row">
+<div class="fld">
+<label for="start">Startkapital</label>
+<div class="inwrap"><input type="text" id="start" inputmode="numeric" value="1000"><span class="suf">€</span></div>
+</div>
+<div class="fld">
+<label for="rate">Sparrate / Monat</label>
+<div class="inwrap"><input type="text" id="rate" inputmode="numeric" value="200"><span class="suf">€</span></div>
+</div>
+</div>
+<div class="fld" style="margin-bottom:16px">
+<label for="dyn">Jährliche Erhöhung der Sparrate</label>
+<div class="inwrap" style="max-width:150px"><input type="text" id="dyn" inputmode="decimal" value="0"><span class="suf">%</span></div>
+</div>
+<div class="fld">
+<div class="slider-head">
+<label for="years">Laufzeit</label>
+<div class="sval" id="years-out">25 <span>Jahre</span></div>
+</div>
+<input type="range" id="years" min="1" max="45" value="25">
+</div>
+</div>
+<div class="sect">
+<div class="lbl">2 · Rendite &amp; Kosten<span class="hint">Rendite als Bruttowert vor Kosten – die laufenden Fondskosten (TER) werden abgezogen.</span></div>
+<div class="scen">
+<span class="dot" style="background:var(--s1)"></span>
+<div class="sname">Vorsichtig<small>defensiv / anleihenlastig</small></div>
+<div class="inwrap"><input type="text" class="ret" data-i="0" inputmode="decimal" value="4"><span class="suf">%</span></div>
+</div>
+<div class="scen">
+<span class="dot" style="background:var(--s2)"></span>
+<div class="sname">Realistisch<small>breiter Aktien-ETF, langfristig</small></div>
+<div class="inwrap"><input type="text" class="ret" data-i="1" inputmode="decimal" value="7"><span class="suf">%</span></div>
+</div>
+<div class="scen">
+<span class="dot" style="background:var(--s3)"></span>
+<div class="sname">Optimistisch<small>überdurchschnittliche Marktphase</small></div>
+<div class="inwrap"><input type="text" class="ret" data-i="2" inputmode="decimal" value="9"><span class="suf">%</span></div>
+</div>
+<div class="fld" style="margin-top:14px; border-top:1px dashed var(--line); padding-top:14px">
+<label for="ter">Laufende Kosten p. a. (TER)</label>
+<div class="inwrap" style="max-width:150px"><input type="text" id="ter" inputmode="decimal" value="0,2"><span class="suf">%</span></div>
+</div>
+</div>
+<div class="sect">
+<div class="lbl">3 · Steuer &amp; Inflation</div>
+<div class="fld" style="margin-bottom:16px">
+<label>Anlageart (Teilfreistellung)</label>
+<div class="seg" id="seg-tf" role="group" aria-label="Teilfreistellung">
+<button type="button" data-tf="0.30" class="on">Aktien-ETF · 30 %</button>
+<button type="button" data-tf="0.15">Misch · 15 %</button>
+<button type="button" data-tf="0">Zinsen · 0 %</button>
+</div>
+</div>
+<div class="fld" style="margin-bottom:16px">
+<label>Sparerpauschbetrag (1.000 €/Jahr)</label>
+<div class="seg" id="seg-pb" role="group" aria-label="Sparerpauschbetrag">
+<button type="button" data-pb="once" class="on">Einmalig</button>
+<button type="button" data-pb="yearly">Jährlich</button>
+</div>
+</div>
+<div class="fld">
+<label for="infl">Inflation p. a. (für Kaufkraft)</label>
+<div class="inwrap" style="max-width:150px"><input type="text" id="infl" inputmode="decimal" value="2"><span class="suf">%</span></div>
+</div>
+</div>
+<div class="chartwrap">
+<div class="chart-title"><span>Wertentwicklung (brutto)</span><span class="tap">tippen für Zwischenwerte</span></div>
+<svg class="chart" id="chart" viewBox="0 0 600 320" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Wachstumsdiagramm der Szenarien"></svg>
+<div class="legend">
+<div class="lg"><i style="background:var(--s1)"></i>Vorsichtig</div>
+<div class="lg"><i style="background:var(--s2)"></i>Realistisch</div>
+<div class="lg"><i style="background:var(--s3)"></i>Optimistisch</div>
+<div class="lg dash"><i></i>Einzahlungen</div>
+</div>
+</div>
+<div class="sect">
+<div class="lbl">Ergebnis der Sparphase</div>
+<div class="cards" id="cards"></div>
+</div>
+<div class="sect">
+<div class="lbl">4 · Entnahmephase<span class="hint">Basis: das Netto-Endkapital des realistischen Szenarios. Entnahme steigt jährlich mit der Inflation (reale Kaufkraft bleibt gleich).</span></div>
+<div class="row">
+<div class="fld">
+<label for="wdraw">Entnahme / Monat (heutiger Wert)</label>
+<div class="inwrap"><input type="text" id="wdraw" inputmode="numeric" value="800"><span class="suf">€</span></div>
+</div>
+<div class="fld">
+<label for="wret">Rendite Entnahmephase</label>
+<div class="inwrap"><input type="text" id="wret" inputmode="decimal" value="5"><span class="suf">%</span></div>
+</div>
+</div>
+<div class="withdraw-out" style="margin-top:16px">
+<div class="wrow"><span class="wk">Nachhaltige Rente nach der 4-%-Regel</span><span class="wv teal" id="w-safe">—<small>dauerhaft entnehmbar, Kapital bleibt real erhalten</small></span></div>
+<div class="wrow"><span class="wk">Ihre gewählte Entnahme reicht</span><span class="wv gold" id="w-last">—<small id="w-last-sub">&nbsp;</small></span></div>
+</div>
+</div>
+<div class="sect last">
+<div class="foot" style="padding:0 0 4px">
+<button type="button" class="reset" id="reset">Zurücksetzen</button>
+</div>
+<p class="legal" style="margin-top:0">
+<span class="warn">© 2026 tangomike. Alle Rechte vorbehalten.</span> Nutzung nur über diese Seite gestattet — Kopieren, Verändern, Weiterverbreiten oder Hosten an anderer Stelle ist ohne schriftliche Genehmigung untersagt.
+</p>
+<p class="legal">
+<span class="warn">Keine Anlageberatung.</span> Vereinfachte Modellrechnung, kein Angebot und keine Finanzberatung. Renditen sind frei gewählte Annahmen, keine Zusage – reale Kurse schwanken und können auch fallen.<br><br>
+<b>Sequenzrisiko:</b> Der Rechner unterstellt eine konstante Jahresrendite. In Wirklichkeit schwanken Märkte – ein Einbruch kurz vor Ende der Sparphase oder zu Beginn der Entnahme trifft überproportional hart (Reihenfolge der Renditen zählt). Sehen Sie die Ergebnisse als Orientierung, nicht als Punktlandung.<br><br>
+<b>Rechenannahmen:</b> Monatliche Sparrate nachschüssig, Verzinsung monatlich aus der effektiven Jahresrendite nach Kosten (Rendite − TER). Steuer = 26,375 % (25 % Abgeltungssteuer + Soli) beim Verkauf am Ende, nach Teilfreistellung und Sparerpauschbetrag. „Einmalig“ passt zum thesaurierenden Buy-and-Hold-ETF (realistischer, da der Freibetrag ohne jährliche Realisierung meist ungenutzt bliebe); „jährlich“ setzt die volle jährliche Nutzung an (Obergrenze). Nicht berücksichtigt: Vorabpauschale, Kirchensteuer, Ausgabeaufschläge. Die tatsächliche Besteuerung kann abweichen.
+</p>
+</div>
+</div>
+<script>
+(function(){
+"use strict";
+var nfEUR = new Intl.NumberFormat('de-DE',{maximumFractionDigits:0});
+var SCEN = [
+{name:"Vorsichtig",  color:"--s1"},
+{name:"Realistisch", color:"--s2"},
+{name:"Optimistisch",color:"--s3"}
+];
+var TAX = 0.26375, PAUSCH = 1000;
+var teilfrei = 0.30, pbMode = "once";
+var chartData = null;
+function cssv(n){ return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+function eur(v){ return nfEUR.format(Math.round(v))+" €"; }
+function parseNum(raw){
+var s = (raw||"").toString().trim().replace(/[€%\s]/g,"");
+if(s==="") return 0;
+var hasDot = s.indexOf(".")>=0, hasComma = s.indexOf(",")>=0;
+if(hasDot && hasComma){
+if(s.lastIndexOf(",") > s.lastIndexOf(".")) s = s.replace(/\./g,"").replace(",",".");
+else s = s.replace(/,/g,"");
+} else if(hasComma){
+s = s.replace(/\./g,"").replace(",",".");
+} else {
+var dots = (s.match(/\./g)||[]).length;
+if(dots>1) s = s.replace(/\./g,"");
+else if(/^\d+\.\d{3}$/.test(s)) s = s.replace(".","");
+}
+var n = parseFloat(s);
+return isFinite(n)?n:0;
+}
+function val(id){ return parseNum(document.getElementById(id).value); }
+function pctVal(id){ return parseNum(document.getElementById(id).value)/100; }
+function simulate(K0, R, gYear, rNet, years){
+var i = Math.pow(1+rNet, 1/12) - 1;
+var months = Math.round(years*12);
+var kapital = K0, paid = K0;
+var yearly = [K0], paidYearly = [K0];
+for(var m=1; m<=months; m++){
+kapital = kapital*(1+i);
+var yr = Math.floor((m-1)/12);
+var rate = R * Math.pow(1+gYear, yr);
+kapital += rate; paid += rate;
+if(m % 12 === 0){ yearly.push(kapital); paidYearly.push(paid); }
+}
+return {end:kapital, paid:paid, yearly:yearly, paidYearly:paidYearly};
+}
+function taxOnGain(gain, years){
+var steuerpflichtig = gain * (1 - teilfrei);
+var frei = (pbMode==="yearly") ? PAUSCH*years : PAUSCH;
+steuerpflichtig = Math.max(0, steuerpflichtig - frei);
+return steuerpflichtig * TAX;
+}
+function drawdownYears(startK, monthly, rNet, infl){
+var i = Math.pow(1+rNet, 1/12) - 1;
+var kapital = startK, m = 0, cap = 1200;
+while(kapital > 0 && m < cap){
+kapital = kapital*(1+i);
+var yr = Math.floor(m/12);
+kapital -= monthly * Math.pow(1+infl, yr);
+m++;
+}
+return m>=cap ? Infinity : m/12;
+}
+function fmtAxis(v){
+if(v>=1000000) return (v/1000000).toLocaleString('de-DE',{maximumFractionDigits:1})+"M";
+if(v>=1000)    return Math.round(v/1000)+"k";
+return Math.round(v);
+}
+function niceMax(v){
+if(v<=0) return 1000;
+var mag = Math.pow(10, Math.floor(Math.log10(v)));
+var f = v/mag;
+var nice = f<=1?1:f<=2?2:f<=2.5?2.5:f<=5?5:10;
+return nice*mag;
+}
+function drawChart(highlightT){
+if(!chartData) return;
+var W=600, H=320, padL=52, padR=14, padT=12, padB=26;
+var plotW=W-padL-padR, plotH=H-padT-padB;
+var steps = chartData.steps, yMax = chartData.yMax;
+var series = chartData.series, paid = chartData.paid;
+var X = function(t){ return padL + (t/steps)*plotW; };
+var Y = function(v){ return padT + plotH - (v/yMax)*plotH; };
+var svg = "";
+for(var g=0; g<=4; g++){
+var vv = yMax*g/4, y = Y(vv);
+svg += '<line class="grid-line" x1="'+padL+'" y1="'+y.toFixed(1)+'" x2="'+(W-padR)+'" y2="'+y.toFixed(1)+'"/>';
+svg += '<text class="axis-txt" x="'+(padL-8)+'" y="'+(y+3.5).toFixed(1)+'" text-anchor="end">'+fmtAxis(vv)+'</text>';
+}
+var xStep = Math.max(1, Math.round(steps/5));
+for(var xt=0; xt<=steps; xt+=xStep){
+svg += '<text class="axis-txt" x="'+X(xt).toFixed(1)+'" y="'+(H-8)+'" text-anchor="middle">'+xt+'</text>';
+}
+if(steps % xStep !== 0){
+svg += '<text class="axis-txt" x="'+X(steps).toFixed(1)+'" y="'+(H-8)+'" text-anchor="middle">'+steps+'</text>';
+}
+var pPaid = paid.map(function(v,t){ return X(t).toFixed(1)+","+Y(v).toFixed(1); }).join(" ");
+svg += '<polyline class="paid-line" points="'+pPaid+'"/>';
+series.forEach(function(s,idx){
+var col = cssv(SCEN[idx].color);
+var pts = s.map(function(v,t){ return X(t).toFixed(1)+","+Y(v).toFixed(1); }).join(" ");
+svg += '<polyline points="'+pts+'" fill="none" stroke="'+col+'" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>';
+svg += '<circle cx="'+X(steps).toFixed(1)+'" cy="'+Y(s[s.length-1]).toFixed(1)+'" r="3.5" fill="'+col+'"/>';
+});
+if(highlightT!=null){
+var t = highlightT, hx = X(t);
+svg += '<line x1="'+hx.toFixed(1)+'" y1="'+padT+'" x2="'+hx.toFixed(1)+'" y2="'+(padT+plotH)+'" stroke="'+cssv("--ink-mute")+'" stroke-width="1" stroke-dasharray="3 3"/>';
+series.forEach(function(s,idx){
+svg += '<circle cx="'+hx.toFixed(1)+'" cy="'+Y(s[t]).toFixed(1)+'" r="4" fill="'+cssv(SCEN[idx].color)+'" stroke="'+cssv("--panel")+'" stroke-width="1.5"/>';
+});
+var bw=118, bh=74, bx = hx>W/2 ? hx-bw-8 : hx+8, by = padT+4;
+svg += '<rect x="'+bx.toFixed(1)+'" y="'+by+'" width="'+bw+'" height="'+bh+'" rx="6" fill="'+cssv("--panel-2")+'" stroke="'+cssv("--line-2")+'"/>';
+svg += '<text x="'+(bx+9)+'" y="'+(by+16)+'" fill="'+cssv("--ink-dim")+'" font-family="'+cssv("--mono")+'" font-size="10">Jahr '+t+'</text>';
+[2,1,0].forEach(function(idx,k){
+var yy = by + 33 + k*15;
+svg += '<circle cx="'+(bx+12)+'" cy="'+(yy-3.5)+'" r="3.5" fill="'+cssv(SCEN[idx].color)+'"/>';
+svg += '<text x="'+(bx+22)+'" y="'+yy+'" fill="'+cssv("--ink")+'" font-family="'+cssv("--mono")+'" font-size="11">'+eur(series[idx][t])+'</text>';
+});
+}
+document.getElementById("chart").innerHTML = svg;
+}
+function makeCards(res, rets, years, infl){
+var html = "";
+rets.forEach(function(r,idx){
+var gross = res[idx].end, paidTotal = res[idx].paid;
+var gain = gross - paidTotal;
+var tax = taxOnGain(gain, years);
+var net = gross - tax;
+var real = net / Math.pow(1+infl, years);
+var col = cssv(SCEN[idx].color);
+html +=
+'<div class="card" style="border-left-color:'+col+'">'+
+'<div class="ctop"><span class="dot" style="width:11px;height:11px;border-radius:50%;background:'+col+'"></span>'+
+'<span class="cname">'+SCEN[idx].name+'</span>'+
+'<span class="crate">'+(r*100).toLocaleString('de-DE',{maximumFractionDigits:2})+' % p. a.</span></div>'+
+'<div class="big">'+eur(gross)+'</div>'+
+'<div class="biglbl">Endkapital brutto (nominal)</div>'+
+'<div class="grid2">'+
+'<div class="kv"><div class="k">Eingezahlt</div><div class="v dim">'+eur(paidTotal)+'</div></div>'+
+'<div class="kv"><div class="k">Gewinn (brutto)</div><div class="v gold">'+eur(gain)+'</div></div>'+
+'<div class="kv"><div class="k">Steuer</div><div class="v neg">'+(tax>0?'– '+eur(tax):'0 €')+'</div></div>'+
+'<div class="kv"><div class="k">Netto (nach Steuer)</div><div class="v">'+eur(net)+'</div></div>'+
+'<div class="kv" style="grid-column:1 / -1"><div class="k">Reale Kaufkraft heute (netto)</div><div class="v gold">'+eur(real)+'</div></div>'+
+'</div>'+
+'</div>';
+});
+document.getElementById("cards").innerHTML = html;
+}
+function render(){
+var K0 = val("start"), R = val("rate"), g = pctVal("dyn");
+var years = parseInt(document.getElementById("years").value,10);
+var infl = pctVal("infl"), ter = pctVal("ter");
+var rets = Array.prototype.map.call(document.querySelectorAll(".ret"), function(el){ return parseNum(el.value)/100; });
+document.getElementById("years-out").innerHTML = years+' <span>'+(years===1?'Jahr':'Jahre')+'</span>';
+var res = rets.map(function(r){ return simulate(K0, R, g, Math.max(-0.99, r-ter), years); });
+var maxVal = 0;
+res.forEach(function(s){ s.yearly.forEach(function(v){ if(v>maxVal) maxVal=v; }); });
+res[0].paidYearly.forEach(function(v){ if(v>maxVal) maxVal=v; });
+chartData = {
+steps: years,
+yMax: niceMax(maxVal*1.02),
+series: res.map(function(s){ return s.yearly; }),
+paid: res[0].paidYearly
+};
+drawChart(null);
+makeCards(res, rets, years, infl);
+var gr = res[1].end, pd = res[1].paid;
+var gain = gr - pd, tax = taxOnGain(gain, years), net = gr - tax;
+var real = net / Math.pow(1+infl, years);
+document.getElementById("hero-val").textContent = eur(net);
+document.getElementById("hero-paid").textContent = eur(pd);
+document.getElementById("hero-years").textContent = years;
+document.getElementById("hero-net").textContent = eur(net);
+document.getElementById("hero-real").textContent = eur(real);
+var wret = pctVal("wret"), wdraw = val("wdraw");
+var safeMonthly = net * 0.04 / 12;
+document.getElementById("w-safe").innerHTML = eur(safeMonthly)+' / Monat<small>dauerhaft entnehmbar, Kapital bleibt real erhalten</small>';
+var yrs = drawdownYears(net, wdraw, wret, infl);
+var lastEl = document.getElementById("w-last"), subEl = document.getElementById("w-last-sub");
+if(yrs===Infinity){
+lastEl.childNodes[0].nodeValue = "unbegrenzt";
+subEl.textContent = "Rendite trägt die Entnahme – Kapital wird nicht aufgezehrt";
+} else {
+lastEl.childNodes[0].nodeValue = yrs.toLocaleString('de-DE',{maximumFractionDigits:1})+" Jahre";
+subEl.textContent = "ab Beginn der Entnahme (inflationsangepasst)";
+}
+}
+var svgEl = document.getElementById("chart");
+function handlePointer(e){
+if(!chartData) return;
+var rect = svgEl.getBoundingClientRect();
+var cx = (e.touches ? e.touches[0].clientX : e.clientX);
+var xSvg = (cx - rect.left) / rect.width * 600;
+var padL=52, plotW=600-52-14, steps=chartData.steps;
+var t = Math.round((xSvg - padL)/plotW * steps);
+t = Math.max(0, Math.min(steps, t));
+drawChart(t);
+}
+svgEl.addEventListener("pointerdown", handlePointer);
+svgEl.addEventListener("pointermove", function(e){ if(e.buttons || e.pointerType==="touch") handlePointer(e); });
+svgEl.addEventListener("pointerleave", function(){ drawChart(null); });
+document.getElementById("seg-tf").addEventListener("click", function(e){
+var b = e.target.closest("button"); if(!b) return;
+teilfrei = parseFloat(b.dataset.tf);
+this.querySelectorAll("button").forEach(function(x){ x.classList.toggle("on", x===b); });
+render();
+});
+document.getElementById("seg-pb").addEventListener("click", function(e){
+var b = e.target.closest("button"); if(!b) return;
+pbMode = b.dataset.pb;
+this.querySelectorAll("button").forEach(function(x){ x.classList.toggle("on", x===b); });
+render();
+});
+document.querySelectorAll("input").forEach(function(el){ el.addEventListener("input", render); });
+document.getElementById("reset").addEventListener("click", function(){
+var d = {start:"1000",rate:"200",dyn:"0",years:"25",infl:"2",ter:"0,2",wdraw:"800",wret:"5"};
+for(var k in d){ document.getElementById(k).value = d[k]; }
+var defs=["4","7","9"];
+document.querySelectorAll(".ret").forEach(function(el,i){ el.value=defs[i]; });
+teilfrei=0.30; pbMode="once";
+document.querySelectorAll("#seg-tf button").forEach(function(x){ x.classList.toggle("on", x.dataset.tf==="0.30"); });
+document.querySelectorAll("#seg-pb button").forEach(function(x){ x.classList.toggle("on", x.dataset.pb==="once"); });
+render();
+});
+render();
+})();
+</script>
+</body>
+</html>
