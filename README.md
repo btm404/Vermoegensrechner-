@@ -53,7 +53,7 @@ tatsächliche Besteuerung kann abweichen.
 
 - Eine einzige HTML-Datei, reines HTML/CSS/JavaScript, keine Frameworks.
 - Diagramm als dynamisch erzeugtes SVG, vollständig offline lauffähig.
-- `index.html` ist minifiziert (Auslieferungsfassung).
+- `index.html` ist minifiziert.
 
 ---
 
